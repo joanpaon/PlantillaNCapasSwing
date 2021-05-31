@@ -15,6 +15,8 @@
  */
 package org.japo.java.layers.managers;
 
+import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -22,6 +24,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.util.Properties;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.japo.java.components.BackgroundPanel;
 import org.japo.java.entities.Credencial;
@@ -48,6 +51,7 @@ public final class M1User extends JFrame implements S1User {
     public static final String PRP_FORM_TITLE = "form.title";
     public static final String PRP_FORM_WIDTH = "form.width";
     public static final String PRP_FORM_HEIGHT = "form.height";
+    public static final String PRP_FORM_FULL_SCREEN = "form.full_screen";
 
     // Propiedades Resources
     public static final String PRP_RESOURCE_FONT = "resource.font";
@@ -106,6 +110,30 @@ public final class M1User extends JFrame implements S1User {
         System.out.println("---");
     }
 
+    // Interfaz - Inicialización Previa
+    private void initBefore() {
+        // Establecer LnF
+        UtilesSwing.establecerLnFProfile(prp.getProperty(PRP_FORM_LNF_PROFILE));
+
+        // Fuentes
+        fntPpal = UtilesSwing.generarFuenteRecurso(prp.getProperty(PRP_RESOURCE_FONT));
+
+        // Imágenes
+        imgBack = UtilesSwing.importarImagenRecurso(prp.getProperty(PRP_RESOURCE_IMG));
+    }
+
+    // Interfaz - Inicialización Posterior
+    private void initAfter() {
+        // Establecer Favicon
+        UtilesSwing.establecerFavicon(this, prp.getProperty(PRP_RESOURCE_IMG_FAVICON));
+        
+        // Establecer Modo Pantalla Completa
+        String scrMode = prp.getProperty(PRP_FORM_FULL_SCREEN);
+        if (scrMode != null && scrMode.contains("true")) {
+            setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }
+    }
+
     public void procesarCierreVentana(WindowEvent e) {
         // Cerrar Acceso a Datos
         closeApp();
@@ -126,49 +154,35 @@ public final class M1User extends JFrame implements S1User {
 //        System.out.println("---");
 //        System.out.println("Copyright JAPO Labs - Servicios Informáticos");
     }
-
-    // Interfaz - Inicialización Previa
-    private void initBefore() {
-        // Establecer LnF
-        UtilesSwing.establecerLnFProfile(prp.getProperty(PRP_FORM_LNF_PROFILE));
-
-        // Fuentes
-//        fntPpal = UtilesSwing.generarFuenteRecurso(prp.getProperty(PRP_RESOURCE_FONT));
-        // Imágenes
-        imgBack = UtilesSwing.importarImagenRecurso(prp.getProperty(PRP_RESOURCE_IMG));
-
-        // Panel Principal
-        pnlPpal = new BackgroundPanel(imgBack);
-
-        // Ventana Principal
-        setContentPane(pnlPpal);
-    }
-
-    // Interfaz - Inicialización Posterior
-    private void initAfter() {
-        // Establecer Favicon
-        UtilesSwing.establecerFavicon(this, prp.getProperty(PRP_RESOURCE_IMG_FAVICON));
-    }
     //</editor-fold>
 
     // Componentes
     private JPanel pnlPpal;
+    private JLabel lblSaludo;
 
     // Fuentes
-//    private Font fntPpal;
+    private Font fntPpal;
     
     // Imágenes
     private Image imgBack;
 
     // Interfaz - Construcción
     private void initComponents() {
+        // Etiqueta Saludo
+        lblSaludo = new JLabel("¡Hola Mundo!");
+        lblSaludo.setFont(fntPpal);
+        
         // Panel Principal
         pnlPpal = new BackgroundPanel(imgBack);
+        pnlPpal.setLayout(new GridBagLayout());
+        pnlPpal.add(lblSaludo);
 
         // Ventana Principal
         setTitle(prp.getProperty(PRP_FORM_TITLE));
         setContentPane(pnlPpal);
-        setSize(600, 400);
+        int w = Integer.parseInt(prp.getProperty(PRP_FORM_WIDTH));
+        int h = Integer.parseInt(prp.getProperty(PRP_FORM_HEIGHT));
+        setSize(w, h);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WEM(this));

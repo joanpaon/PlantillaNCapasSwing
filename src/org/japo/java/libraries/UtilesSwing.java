@@ -84,7 +84,7 @@ public final class UtilesSwing {
     // Fuente Predeterminada
     public static final String DEF_FONT_FAMILY = Font.SANS_SERIF;
     public static final int DEF_FONT_STYLE = Font.PLAIN;
-    public static final int DEF_FONT_SIZE = 12;
+    public static final int DEF_FONT_SIZE = 48;
     public static final Font DEF_FONT = new Font(DEF_FONT_FAMILY, DEF_FONT_STYLE, DEF_FONT_SIZE);
 
     // Cerrar Programa Swing
@@ -420,7 +420,7 @@ public final class UtilesSwing {
     // Fuente ( Fichero | Sistema | Lógica ) + Estilo + Talla > Fuente
     public static final Font generarFuenteFichero(String fichero,
             String fuenteSistema, String fuenteLogica) {
-        return generarFuenteFichero(fichero, DEF_FONT_STYLE, DEF_FONT_STYLE,
+        return generarFuenteFichero(fichero, DEF_FONT_STYLE, DEF_FONT_SIZE,
                 fuenteSistema, fuenteLogica);
     }
 
@@ -446,13 +446,13 @@ public final class UtilesSwing {
     // Fuente ( Recurso | Sistema | Lógica ) > Fuente
     public static final Font generarFuenteRecurso(String recurso,
             String fuenteSistema, String fuenteLogica) {
-        return generarFuenteRecurso(recurso, DEF_FONT_STYLE, DEF_FONT_STYLE,
+        return generarFuenteRecurso(recurso, DEF_FONT_STYLE, DEF_FONT_SIZE,
                 fuenteSistema, fuenteLogica);
     }
 
     // Fuente ( Recurso ) > Fuente
     public static final Font generarFuenteRecurso(String recurso) {
-        return generarFuenteRecurso(recurso, DEF_FONT_STYLE, DEF_FONT_STYLE,
+        return generarFuenteRecurso(recurso, DEF_FONT_STYLE, DEF_FONT_SIZE,
                 DEF_FONT_FAMILY, FONT_LOGICAL_SERIF_NAME);
     }
 
