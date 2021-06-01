@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2021 José A. Pacheco Ondoño - japolabs@gmail.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,19 +16,13 @@
 package org.japo.java.layers.managers;
 
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.util.Properties;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.japo.java.components.BackgroundPanel;
 import org.japo.java.entities.Credencial;
-import org.japo.java.events.WEM;
 import org.japo.java.exceptions.ConnectivityException;
 import org.japo.java.layers.services.S1User;
 import org.japo.java.libraries.UtilesSwing;
@@ -36,7 +30,7 @@ import org.japo.java.layers.services.S2Bnes;
 
 /**
  *
- * @author José A. Pacheco Ondoño - joanpaon@gmail.com
+ * @author José A. Pacheco Ondoño - japolabs@gmail.com
  */
 public final class M1User extends JFrame implements S1User {
 
@@ -92,7 +86,7 @@ public final class M1User extends JFrame implements S1User {
         // Modo de Conexión
         String mode = prp.getProperty(PRP_CONN_MODE);
 
-        // Evaluación del modo de conexión
+        // Evaluación del modo de conexión (Properties)
         if (mode != null && mode.equals("login")) {
             // ---
         }
@@ -104,8 +98,6 @@ public final class M1User extends JFrame implements S1User {
         bs.loginApp(c);
 
         // Mensaje - Bitácora ( Comentar en producción )
-//        System.out.println("Patrón de Diseño Estructural de Capas Funcionales");
-//        System.out.println("=================================================");
         System.out.println("Bitácora: Acceso a Datos Establecido");
         System.out.println("---");
     }
@@ -120,13 +112,25 @@ public final class M1User extends JFrame implements S1User {
 
         // Imágenes
         imgBack = UtilesSwing.importarImagenRecurso(prp.getProperty(PRP_RESOURCE_IMG));
+
+        // Panel Principal
+        pnlPpal = new BackgroundPanel(imgBack);
+
+        // Panel Principal > Ventana Principal
+        setContentPane(pnlPpal);
     }
 
     // Interfaz - Inicialización Posterior
     private void initAfter() {
         // Establecer Favicon
         UtilesSwing.establecerFavicon(this, prp.getProperty(PRP_RESOURCE_IMG_FAVICON));
-        
+
+        // Ventana Principal ( Parametrización Opcional )
+//        setTitle(prp.getProperty(PRP_FORM_TITLE));
+//        int w = Integer.parseInt(prp.getProperty(PRP_FORM_WIDTH));
+//        int h = Integer.parseInt(prp.getProperty(PRP_FORM_HEIGHT));
+//        setSize(w, h);
+//        setLocationRelativeTo(null);
         // Establecer Modo Pantalla Completa
         String scrMode = prp.getProperty(PRP_FORM_FULL_SCREEN);
         if (scrMode != null && scrMode.contains("true")) {
@@ -149,59 +153,49 @@ public final class M1User extends JFrame implements S1User {
 
         // Mensaje - Bitácora ( Comentar en producción )
         System.out.println("Bitácora: Acceso a Datos Finalizado");
-
-        // Despedida
-//        System.out.println("---");
-//        System.out.println("Copyright JAPO Labs - Servicios Informáticos");
     }
     //</editor-fold>
 
     // Componentes
     private JPanel pnlPpal;
-    private JLabel lblSaludo;
 
     // Fuentes
     private Font fntPpal;
-    
+
     // Imágenes
     private Image imgBack;
 
-    // Interfaz - Construcción
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        // Etiqueta Saludo
-        lblSaludo = new JLabel("¡Hola Mundo!");
-        lblSaludo.setFont(fntPpal);
-        
-        // Panel Principal
-        pnlPpal = new BackgroundPanel(imgBack);
-        pnlPpal.setLayout(new GridBagLayout());
-        pnlPpal.add(lblSaludo);
 
-        // Ventana Principal
-        setTitle(prp.getProperty(PRP_FORM_TITLE));
-        setContentPane(pnlPpal);
-        int w = Integer.parseInt(prp.getProperty(PRP_FORM_WIDTH));
-        int h = Integer.parseInt(prp.getProperty(PRP_FORM_HEIGHT));
-        setSize(w, h);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Plantilla N Capas");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+
+        setSize(new java.awt.Dimension(816, 539));
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WEM(this));
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    // ---
-    public void procesarAccion(ActionEvent e) {
-        // ---
-    }
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        procesarCierreVentana(evt);
+    }//GEN-LAST:event_formWindowClosing
 
-    public void procesarTeclado(KeyEvent e) {
-        // ---
-    }
-
-    public void procesarRaton(MouseEvent e) {
-        // ---
-    }
-
-    public void procesarArrastre(MouseEvent e) {
-        // ---
-    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
 }
