@@ -22,8 +22,8 @@ import org.japo.java.exceptions.AccessException;
 import org.japo.java.exceptions.ConnectivityException;
 import org.japo.java.libraries.UtilesApp;
 import org.japo.java.layers.services.S3Data;
-import org.japo.java.layers.services.S2Bussiness;
 import org.japo.java.layers.services.S1User;
+import org.japo.java.layers.services.S2Bnes;
 
 /**
  *
@@ -36,13 +36,13 @@ public final class Main {
     private static final String PRP_APP_PASSWORD = "app.password";
 
     // Estructura de Capas - Propiedades
-    private static final String PRP_LAYER_MANAGER_USER = "layer.manager.user";
-    private static final String PRP_LAYER_MANAGER_BNES = "layer.manager.bnes";
-    private static final String PRP_LAYER_MANAGER_DATA = "layer.manager.data";
+    private static final String PRP_LAYER_MANAGER_USER = "layer.manager.user.class";
+    private static final String PRP_LAYER_MANAGER_BNES = "layer.manager.bnes.class";
+    private static final String PRP_LAYER_MANAGER_DATA = "layer.manager.data.class";
 
     // Estructura de Capas - Valores por defecto
     private static final String DEF_LAYER_MANAGER_USER = "org.japo.java.layers.managers.M1User";
-    private static final String DEF_LAYER_MANAGER_BNES = "org.japo.java.layers.managers.M2Bussiness";
+    private static final String DEF_LAYER_MANAGER_BNES = "org.japo.java.layers.managers.M2Bnes";
     private static final String DEF_LAYER_MANAGER_DATA = "org.japo.java.layers.managers.M3Data";
 
     // Constructor Oculto
@@ -72,11 +72,11 @@ public final class Main {
             // Constructores
             Constructor dCons = dClass.getConstructor(Properties.class);
             Constructor bCons = bClass.getConstructor(Properties.class, S3Data.class);
-            Constructor uCons = uClass.getConstructor(Properties.class, S2Bussiness.class);
+            Constructor uCons = uClass.getConstructor(Properties.class, S2Bnes.class);
 
             // Instanciación de Capas
             S3Data ds = (S3Data) dCons.newInstance(prp);
-            S2Bussiness bs = (S2Bussiness) bCons.newInstance(prp, ds);
+            S2Bnes bs = (S2Bnes) bCons.newInstance(prp, ds);
             S1User us = (S1User) uCons.newInstance(prp, bs);
 
             // Properties > Password
@@ -92,14 +92,14 @@ public final class Main {
                     us.setVisible(true);
                 });
             } else {
-                throw new AccessException("ERROR: Acceso a la Aplicación Denegado");
+                throw new AccessException("Acceso Denegado a la Aplicación");
             }
         } catch (AccessException | ConnectivityException | NullPointerException
                 | ClassNotFoundException | IllegalAccessException
                 | IllegalArgumentException | InstantiationException
                 | NoSuchMethodException | SecurityException
                 | InvocationTargetException e) {
-            System.out.printf("ERROR: %s%n", e.getMessage());
+            System.out.printf("Bitácora: %s%n", e.getMessage());
             System.out.println("---");
             System.out.println("Contacte con el Servicio Técnico");
         }

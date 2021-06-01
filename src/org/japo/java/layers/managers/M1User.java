@@ -30,9 +30,9 @@ import org.japo.java.components.BackgroundPanel;
 import org.japo.java.entities.Credencial;
 import org.japo.java.events.WEM;
 import org.japo.java.exceptions.ConnectivityException;
-import org.japo.java.layers.services.S2Bussiness;
 import org.japo.java.layers.services.S1User;
 import org.japo.java.libraries.UtilesSwing;
+import org.japo.java.layers.services.S2Bnes;
 
 /**
  *
@@ -62,10 +62,10 @@ public final class M1User extends JFrame implements S1User {
     private final Properties prp;
 
     // Gestor Lógica de Negocio
-    private final S2Bussiness bs;
+    private final S2Bnes bs;
 
     // Constructor Parametrizado
-    public M1User(Properties prp, S2Bussiness bs) {
+    public M1User(Properties prp, S2Bnes bs) {
         // Propiedades Aplicación
         this.prp = prp;
 
