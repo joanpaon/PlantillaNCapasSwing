@@ -99,7 +99,6 @@ public final class M1User extends JFrame implements S1User {
 
         // Mensaje - Bitácora ( Comentar en producción )
         System.out.println("Bitácora: Acceso a Datos Establecido");
-        System.out.println("---");
     }
 
     // Interfaz - Inicialización Previa
@@ -131,6 +130,7 @@ public final class M1User extends JFrame implements S1User {
 //        int h = Integer.parseInt(prp.getProperty(PRP_FORM_HEIGHT));
 //        setSize(w, h);
 //        setLocationRelativeTo(null);
+
         // Establecer Modo Pantalla Completa
         String scrMode = prp.getProperty(PRP_FORM_FULL_SCREEN);
         if (scrMode != null && scrMode.contains("true")) {
@@ -152,6 +152,7 @@ public final class M1User extends JFrame implements S1User {
         bs.closeApp();
 
         // Mensaje - Bitácora ( Comentar en producción )
+        System.out.println("---");
         System.out.println("Bitácora: Acceso a Datos Finalizado");
     }
     //</editor-fold>
